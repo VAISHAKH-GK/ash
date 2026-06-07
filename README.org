@@ -1,0 +1,49 @@
+#+TITLE: ASH - A Shell
+#+AUTHOR: Vaishakh GK
+#+DESCRIPTION: A minimal Unix-like shell written in C.
+#+STARTUP: overview
+
+* About
+
+ASH is a simple Unix-like shell written in C, focused on providing a clean and lightweight command-line experience.
+
+* Features
+
+- Interactive shell prompt
+- Command execution
+- Built-in shell commands
+
+* Building
+
+#+begin_src sh
+make
+#+end_src
+
+* Running
+
+#+begin_src sh
+./ash
+#+end_src
+
+* Status
+
+Early development.
+
+* License
+[[file:LICENSE][The GPLv3 License (GPLv3)]]
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see [[https://www.gnu.org/licenses/gpl-3.0][GPLv3]].
+
+* Contact
+- Website: [[https://vaishakhgk.com][Vaishakh GK]]
+- Github: [[https://github.com/VAISHAKH-GK/][VAISHAKH-GK]]
