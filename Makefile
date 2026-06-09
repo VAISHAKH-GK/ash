@@ -1,2 +1,14 @@
+# Detect OS
+ifeq ($(OS),Windows_NT)
+    EXE = ash.exe
+    RUN = .\$(EXE)
+else
+    EXE = ash
+    RUN = ./$(EXE)
+endif
+
 build:
-	gcc -o ash src/main.c
+	@gcc -o $(EXE) src/main.c
+
+run: build
+	@$(RUN)
