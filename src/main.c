@@ -3,7 +3,6 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/wait.h>
-#include <libgen.h>
 
 int main(int argc, char **argv) {
     char *buff = NULL;
@@ -11,10 +10,8 @@ int main(int argc, char **argv) {
 
     printf("ash$ ");
     while((getline(&buff, &size, stdin)) != -1) {
-        printf("%s", buff);
-
         if(strcmp(buff, "exit\n") == 0) {
-            break;
+            exit(0);
         }
 
         buff[strcspn(buff, "\n")] = '\0';
@@ -28,19 +25,14 @@ int main(int argc, char **argv) {
         }
 
         if(pid == 0) {
-            printf("Child process\n");
+            char *exec_argv[] = {buff, NULL};
+            execvp(buff, exec_argv);
 
-            char *program = basename(buff);
-            char *exec_argv[] = {program, NULL};
-            int status_code = execvp(buff, exec_argv);
-
+            perror(buff);
             exit(0);
         }
 
         pid_t wpid = waitpid(pid, &status, 0);
-        if(wpid != -1) {
-            printf("Child pid - %d - status %d \n", wpid, WEXITSTATUS(status));
-        }
 
         printf("ash$ ");
     }
