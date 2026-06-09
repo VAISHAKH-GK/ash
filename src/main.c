@@ -29,10 +29,13 @@ int main(int argc, char **argv) {
             execvp(buff, exec_argv);
 
             perror(buff);
-            exit(0);
+            exit(1);
         }
 
         pid_t wpid = waitpid(pid, &status, 0);
+        if (WIFSIGNALED(status)) {
+            printf("Killed by signal: %d\n", WTERMSIG(status));
+        }
 
         printf("ash$ ");
     }
