@@ -8,7 +8,7 @@ else
 endif
 
 build:
-	@gcc -o $(EXE) src/main.c
+	@gcc -o $(EXE) -Iinclude/ src/*.c
 
 run: build
 	@$(RUN)
