@@ -15,6 +15,10 @@ void shell_loop() {
         }
 
         char **argv = parse(line);
+        if (argv == NULL) {
+            printf("ash$ ");
+            continue;
+        }
 
         execute(argv);
 

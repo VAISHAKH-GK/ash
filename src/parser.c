@@ -10,6 +10,10 @@ char **parse(char *line) {
 
     char *token = strtok(line, " ");
 
+    if(token == NULL) {
+        return NULL;
+    }
+
     while(token != NULL) {
         if(argc >= size - 1) {
             size *= 2;
