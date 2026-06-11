@@ -14,9 +14,9 @@ void shell_loop() {
             exit(0);
         }
 
-        parse(line);
+        char **argv = parse(line);
 
-        execute(line);
+        execute(argv);
 
         printf("ash$ ");
     }

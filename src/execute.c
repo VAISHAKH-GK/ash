@@ -3,7 +3,7 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
-void execute(char *line) {
+void execute(char **argv) {
     pid_t pid = fork();
     int status;
 
@@ -13,8 +13,8 @@ void execute(char *line) {
     }
 
     if(pid == 0) {
-        char *exec_argv[] = {line, NULL};
-        execvp(line, exec_argv);
+        char *line = argv[0];
+        execvp(line, argv);
 
         perror(line);
         exit(1);
