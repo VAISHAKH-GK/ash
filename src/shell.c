@@ -21,8 +21,10 @@ void shell_loop() {
         }
 
         execute(argv);
+        free(argv);
 
         printf("ash$ ");
+
     }
 
     free(line);
