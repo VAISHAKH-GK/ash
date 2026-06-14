@@ -13,8 +13,32 @@ char **parse(char *line) {
     char *token = malloc(token_size * sizeof(char));
 
     char *c = line;
+    int in_quotes = 0;
 
     while(*c != '\0') {
+        if (in_quotes != 0 ) {
+            if(in_quotes == *c) {
+                in_quotes = 0;
+                c++;
+                continue;
+            }
+
+            if(pos >= token_size - 1) {
+                token_size *= 2;
+                token = realloc(token, token_size * sizeof(char));
+            }
+
+            token[pos++] = *c;
+            c++;
+            continue;
+        }
+
+        if(*c == '\'' || *c == '\"') {
+            in_quotes = *c;
+            c++;
+            continue;
+        }
+
         if(*c == ' ') {
             if(pos > 0) {
                 token[pos++] = '\0';
