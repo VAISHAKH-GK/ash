@@ -14,16 +14,21 @@ void shell_loop() {
             exit(0);
         }
 
-        char **argv = parse(line);
-        if (argv == NULL) {
-            printf("ash$ ");
-            continue;
+        char **commands = split_commands(line);
+
+        for(int i = 0; commands[i] != NULL; i++) {
+            if(strcmp(commands[i], ";") != 0) {
+                char **argv = parse(commands[i]);
+                if(argv != NULL) {
+                    execute(argv);
+                    free(argv);
+                }
+            }
         }
 
-        execute(argv);
-        free(argv);
-
         printf("ash$ ");
+
+        free(commands);
 
     }
 
