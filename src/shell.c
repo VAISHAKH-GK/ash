@@ -10,13 +10,13 @@ void shell_loop() {
 
     printf("ash$ ");
     while((getline(&line, &size, stdin)) != -1) {
-        if(strcmp(line, "exit\n") == 0) {
-            exit(0);
-        }
-
         char **commands = split_commands(line);
 
         for(int i = 0; commands[i] != NULL; i++) {
+            if(strcmp(commands[i], "exit") == 0) {
+                exit(0);
+            }
+
             if(strcmp(commands[i], ";") != 0) {
                 char **argv = parse(commands[i]);
                 if(argv != NULL) {
