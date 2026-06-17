@@ -36,11 +36,6 @@ char **split_commands(char *input) {
             continue;
         }
 
-        if(*c == ' ') {
-            c++;
-            continue;
-        }
-
         if(pos >= command_length - 1) {
             command_length *= 2;
             line = realloc(line, command_length * sizeof(char));
