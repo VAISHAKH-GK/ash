@@ -21,12 +21,21 @@ void shell_loop() {
                 char **argv = parse(commands[i]);
                 if(argv != NULL) {
                     execute(argv);
+
+                    for(int i = 0; argv[i] != NULL; i++) {
+                        free(argv[i]);
+                    }
+
                     free(argv);
                 }
             }
         }
 
         printf("ash$ ");
+
+        for(int i = 0; commands[i] != NULL; i++) {
+            free(commands[i]);
+        }
 
         free(commands);
 
