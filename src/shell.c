@@ -8,6 +8,9 @@ void shell_loop() {
     char *line = NULL;
     size_t size = 0;
 
+    int cmd_fail = 0;
+    int stop = 0;
+
     printf("ash$ ");
     while((getline(&line, &size, stdin)) != -1) {
         char **commands = split_commands(line);
@@ -17,17 +20,28 @@ void shell_loop() {
                 exit(0);
             }
 
-            if(strcmp(commands[i], ";") != 0) {
-                char **argv = parse(commands[i]);
-                if(argv != NULL) {
-                    execute(argv);
+            if(strcmp(commands[i], ";") == 0) {
+                continue;
+            }
 
-                    for(int i = 0; argv[i] != NULL; i++) {
-                        free(argv[i]);
-                    }
+            if(strcmp(commands[i], "&&") == 0) {
+                stop = cmd_fail;
+                continue;
+            }
 
-                    free(argv);
+            if(stop) {
+                break;
+            }
+
+            char **argv = parse(commands[i]);
+            if(argv != NULL) {
+                cmd_fail = execute(argv);
+
+                for(int i = 0; argv[i] != NULL; i++) {
+                    free(argv[i]);
                 }
+
+                free(argv);
             }
         }
 

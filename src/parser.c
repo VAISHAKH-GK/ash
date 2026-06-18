@@ -36,6 +36,26 @@ char **split_commands(char *input) {
             continue;
         }
 
+        if(*c == '&' && *(c+1) == '&') {
+            if(pos > 0) {
+                line[pos]  = '\0';
+
+                if(count >= commands_count - 2) {
+                    commands_count *= 2;
+                    commands = realloc(commands, commands_count * sizeof(char*));
+                }
+
+                commands[count++] = strdup(line);
+                pos = 0;
+
+                char op[3] = {'&', '&', '\0'};
+                commands[count++] = strdup(op);
+            }
+
+            c+=2;
+            continue;
+        }
+
         if(pos >= command_length - 1) {
             command_length *= 2;
             line = realloc(line, command_length * sizeof(char));

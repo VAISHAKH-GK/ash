@@ -3,7 +3,7 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
-void execute(char **argv) {
+int execute(char **argv) {
     pid_t pid = fork();
     int status;
 
@@ -24,4 +24,5 @@ void execute(char **argv) {
     if (WIFSIGNALED(status)) {
         printf("Killed by signal: %d\n", WTERMSIG(status));
     }
+    return WEXITSTATUS(status);
 }
