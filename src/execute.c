@@ -26,3 +26,21 @@ int execute(char **argv) {
     }
     return WEXITSTATUS(status);
 }
+
+void execute_bg(char **argv) {
+    pid_t pid = fork();
+
+    if(pid == -1) {
+        perror("Fork failed");
+        exit(1);
+    }
+
+    if(pid == 0) {
+        char *line = argv[0];
+        setpgid(0, 0);
+        execvp(line, argv);
+
+        perror(line);
+        exit(1);
+    }
+}

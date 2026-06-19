@@ -35,7 +35,12 @@ void shell_loop() {
 
             char **argv = parse(commands[i]);
             if(argv != NULL) {
-                cmd_fail = execute(argv);
+                if(commands[i+1] != NULL && strcmp(commands[i+1], "&") == 0) {
+                    execute_bg(argv);
+                    i++;
+                } else {
+                    cmd_fail = execute(argv);
+                }
 
                 for(int i = 0; argv[i] != NULL; i++) {
                     free(argv[i]);
