@@ -16,7 +16,7 @@ char **split_commands(char *input) {
     char *c = input;
 
     while(*c != '\0') {
-        if(*c == '&' && *(c+1) == '&') {
+        if((*c == '&' || *c == '|') && (*c == *(c+1))) {
             if(pos > 0) {
                 line[pos]  = '\0';
 
@@ -28,7 +28,7 @@ char **split_commands(char *input) {
                 commands[count++] = strdup(line);
                 pos = 0;
 
-                char op[3] = {'&', '&', '\0'};
+                char op[3] = {*c, *c, '\0'};
                 commands[count++] = strdup(op);
             }
 

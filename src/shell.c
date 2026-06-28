@@ -13,6 +13,9 @@ void shell_loop() {
 
     printf("ash$ ");
     while((getline(&line, &size, stdin)) != -1) {
+        cmd_fail = 0;
+        stop = 0;
+
         char **commands = split_commands(line);
 
         for(int i = 0; commands[i] != NULL; i++) {
@@ -26,6 +29,11 @@ void shell_loop() {
 
             if(strcmp(commands[i], "&&") == 0) {
                 stop = cmd_fail;
+                continue;
+            }
+
+            if(strcmp(commands[i], "||") == 0) {
+                stop = !cmd_fail;
                 continue;
             }
 
